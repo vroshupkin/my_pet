@@ -16,13 +16,10 @@ def db_commit_and_exit():
     con.close()
 
 
-# TODO Переделать в компактный вид
+# TODO DONE Функция будет использоваться для CLI
 def db_print_row(table_name, *args):
-    text = "SELECT "
-    for row_name in args:
-        text += row_name + ", "
-    text = text[:-2]
-    text += " FROM " + table_name
+    values = ', '.join(args)
+    text = f"SELECT {values} FROM {table_name}"
 
     for row in cur.execute(text):
         print(row)
@@ -34,7 +31,7 @@ def db_add_column(table_name, column_name, type='text'):
 
 
 # TODO Сделать
-def copy_table(new_table_name, copi_table_name, *args):
+def copy_table(new_table_name, copy_table_name, *args):
     pass
 
 
@@ -70,5 +67,6 @@ if __name__ == '__main__':
 # TODO achivments.db Создать, добавить колонки date, time, descriptions, hashtags
 # TODO history db, Узнать как дела с историей у SQLite
 # TODO сделать удаленный сервер SQLite
+# TODO Сделать CLI команду добавление слова в словарь
 
 
