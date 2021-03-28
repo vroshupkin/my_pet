@@ -10,6 +10,10 @@ def get_sha1(file_path):
     return m.hexdigest()
 
 
-path = 'vocabulary.db'
+def test_sha1(path):
+    print(get_sha1(path))
 
-print(get_sha1(path))
+
+test_sha1('vocabulary.db')
+
+

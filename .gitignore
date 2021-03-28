@@ -1,4 +1,5 @@
 .idea/
 venv/
-draft.py
+
+doc/phrase.txt
 doc/lifecycle.txt

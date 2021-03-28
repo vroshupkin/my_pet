@@ -3,26 +3,37 @@ import datetime
 today = datetime.date.today()
 
 
-# TODO DONE
-def db_insert_into(table_name, *args):
+# TODO DONE Вносит в table, значения values
+def db_insert_into(table, *args):
     values = ', '.join(args)
-    output = f'''INSERT INTO {table_name} VALUES ({values});'''
+    output = f'''INSERT INTO {table} VALUES ({values});'''
 
     cur.execute(output)
 
-
+# Необходимость функции не ясна
 def db_commit_and_exit():
     con.commit()
     con.close()
 
 
 # TODO DONE Функция будет использоваться для CLI
-def db_print_row(table_name, *args):
+def db_print_row(table, *args):
     values = ', '.join(args)
-    text = f"SELECT {values} FROM {table_name}"
+    text = f"SELECT {values} FROM {table}"
 
     for row in cur.execute(text):
         print(row)
+
+
+# TODO Читает все значения в таблице и вносит в двухмерный массив
+def db_load_table(table, *args):
+
+    text = f"SELECT {', '.join(args)} FROM {table}"
+
+    out = []
+    for row in cur.execute(text):
+        out.append(row)
+    return out
 
 
 # TODO DONE
@@ -40,28 +51,22 @@ def db_delete_column(table_name, column_name):
     pass
 
 
-
-
-
-con = sqlite3.connect('vocabulary.db')
-cur = con.cursor()
-
-
-
-#con.execute('''CREATE UNIQUE INDEX idx_word ON Vadim (word);''')
-
-# db_add_column('Vadim', 'Transcription')
-
-db_print_row('Vadim', 'word')
-db_commit_and_exit()
-
-
-def test_print_row():
-    db_print_row('Vadim', 'word', 'translate', 'date')
-
-
 if __name__ == '__main__':
-    db_print_row('Vadim', 'word', 'translate', 'date')
+    con = sqlite3.connect('vocabulary.db')
+    cur = con.cursor()
+
+    # print(f"Test 1: db_print_row('Vadim', 'word', 'translate', 'date')\n\tOut:", end="")
+    # db_print_row('Vadim', 'word', 'translate', 'date')
+
+    # db_print_row('Vadim', 'word')
+
+    # con.execute('''CREATE UNIQUE INDEX idx_word ON Vadim (word);''')
+
+
+
+    table = db_load_table('Vadim', 'word')
+    print(table)
+    con.close()
 
 # TODO vocabulary.db Добавить колонку транскрипции
 # TODO achivments.db Создать, добавить колонки date, time, descriptions, hashtags

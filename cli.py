@@ -3,7 +3,7 @@ import os
 import sys
 import database
 
-
+# TODO сделать CLI для добавление слова в базу данных
 my_parser = argparse.ArgumentParser(description='Add word to vocabulary.db')
 my_parser.add_argument('path',
                        metavar='path',
